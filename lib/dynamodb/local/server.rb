@@ -9,6 +9,14 @@ module Dynamodb
         exec "java -Djava.library.path=#{DYNAMODB_LIB_DIR} -jar #{DYNAMODB_JAR_FILE} #{ARGV.join(' ')}"
       end
 
+      def self.start_background(args)
+        @pid = fork { exec "java -Djava.library.path=#{DYNAMODB_LIB_DIR} -jar #{DYNAMODB_JAR_FILE} #{ARGV.join(' ')}" }
+        Process.detach(@pid)
+      end
+
+      def self.stop_background
+        Process.kill('SIGHUP', @pid)
+      end
     end
   end
 end
