@@ -9,7 +9,7 @@ require 'net/http'
 task :default => :prepare
 
 task :prepare do
-  require 'open-uri'
+  require 'net/http'
 
   dynamodb_local_url  = 'https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz'
   ext_dir             = 'lib/dynamodb/local/ext'
