@@ -4,6 +4,8 @@ rescue LoadError
   puts 'Cannot load bundler/gem_tasks'
 end
 
+require 'net/http'
+
 task :default => :prepare
 
 task :prepare do
@@ -18,7 +20,7 @@ task :prepare do
     mkdir_p ext_dir
     $stderr.print "Downloading DynamoDB local..."
     File.open(local_path, 'w') do |f|
-      f.write(open(dynamodb_local_url).read)
+      f.write(Net::HTTP.get_response(URI.parse(dynamodb_local_url)).body)
     end
     `tar -xzf #{local_path} -C #{ext_dir}`
     rm local_path
