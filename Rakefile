@@ -16,7 +16,7 @@ task :prepare do
   local_path          = "#{ext_dir}/dynamodb_local.tar.gz"
   jar_path            = "#{ext_dir}/DynamoDBLocal.jar"
 
-  unless File.exists?(jar_path)
+  unless File.exist?(jar_path)
     mkdir_p ext_dir
     $stderr.print "Downloading DynamoDB local..."
     File.open(local_path, 'w') do |f|
